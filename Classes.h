@@ -12,11 +12,14 @@
 class Personnage {
     public:
         Personnage(int vie, int defense, int degats,std::string arme, std::string nom,bool vivant);        // constructeur de la classe Personnage
-        void attaquer(Personnage &cible);                                           // methode attaquer
+        void attaquer(Personnage* cible);                                           // methode attaquer
         void prenddegats(int ptdegat);                                                   // methode degats
+        bool estvivant();                                                               // methode estvivant
         virtual void afficherstats();                                                       // methode afficherstats
+        void defendre();                                                                // methode defendre
+        std::string getnom();                                                                // methode getnom
     protected:    
-        int vie;                                                                    // attributs de la classe Personnage mis en private
+        int vie;                                                                    // attributs de la classe Personnage mis en protected
         int defense;
         int degats;
         std::string arme;
@@ -31,7 +34,7 @@ class Personnage {
 // creation de la classe Monstre qui herite de la classe Personnage
 class Monstre : public Personnage {
     public:
-        Monstre(int vie, int defense, int degats, std::string arme,std::string nom, bool vivant);
+        Monstre(int vie, int defense, int degats, std::string arme,std::string nom, bool vivant); // constructeur de la classe Monstre
 };
 
 // creation de la classe hero qui herite de la classe Personnage
@@ -40,8 +43,10 @@ class Hero : public Personnage {
         Hero ();                                                                    // constructeur de la classe Hero
         Hero(int vie, int defense, int degats,std::string arme, std::string nom, bool vivant, std::string pouvoir);     // constructeur de la classe Hero
         void afficherstats();                                                               // methode afficherstats
+        void usepouvoir();                                                                  // methode pouvoir
     protected:
-        std::string pouvoir;                                                                // attribut pouvoir mis en private
+        std::string pouvoir;                                                                // attribut pouvoir mis en protected
+        int mana;                                                                           // attribut mana mis en protected
 };
 
 // ==============================================================
@@ -52,21 +57,22 @@ class Hero : public Personnage {
 class Chevalier : public Hero {
     public:
         Chevalier(int vie, int defense, int degats,std::string arme, std::string nom, bool vivant, std::string pouvoir);    // constructeur de la classe Chevalier
-        void pouvoir();                                                                         // methode pouvoir appliquée au Chevalier
+        void usepouvoir();                                                                         // methode pouvoir appliquée au Chevalier
+        
 };
 
 //creation de la classe Ninja qui herite de la classe hero
 class Ninja : public Hero {
     public:
         Ninja(int vie, int defense, int degats,std::string arme, std::string nom, bool vivant, std::string pouvoir);    // constructeur de la classe Ninja
-        void pouvoir();                                                                    // methode pouvoir appliquée au Ninja
+        void usepouvoir();                                                                    // methode pouvoir appliquée au Ninja
 };
 
 // creation de la classe Clerc qui herite de la classe hero
 class Clerc : public Hero {
     public:
         Clerc(int vie, int defense, int degats,std::string arme, std::string nom, bool vivant, std::string pouvoir);    // constructeur de la classe Clerc
-        void pouvoir();                                                                   // methode pouvoir appliquée au Clerc
+        void usepouvoir();                                                                   // methode pouvoir appliquée au Clerc
 };
 
 

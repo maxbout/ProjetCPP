@@ -5,6 +5,33 @@
 
 using namespace std;
 
+// ==============================================================
+// definitions des differentes fonctions utiles
+// ==============================================================
+
+// fonction de verification de la partie
+
+int verifpartie(Hero* listehero[],Monstre* listemonstre[]){
+    
+    // verification des heros
+
+    if (listehero[0]->estvivant()==false & listehero[1]->estvivant()==false & listehero[2]->estvivant()==false & listehero[3]->estvivant()==false){ // si les 4 heros sont tous mort
+        return 1;
+    }
+    // verification des monstres
+
+    if(listemonstre[0]->estvivant()==false & listemonstre[1]->estvivant()==false & listemonstre[2]->estvivant()==false & listemonstre[3]->estvivant()==false &
+     listemonstre[4]->estvivant()==false & listemonstre[5]->estvivant()==false & listemonstre[6]->estvivant()==false & listemonstre[7]->estvivant()==false &
+      listemonstre[8]->estvivant()==false & listemonstre[9]->estvivant()==false){               // si les 10 monstres sont tous morts
+        return 2;                                                                                                                           
+    }
+
+    return 0;                                                                                   // si la partie continue
+}
+
+
+
+
 int main()
 {
     //================================================================
@@ -15,9 +42,9 @@ int main()
     cout << "===Bienvenue dans le jeu de combat===" << endl;
     cout << "Vous allez devoir choisir 4 heros pour votre aventure" << endl;
     cout << "Vous allez rencontrer 10 monstres et allez devoir les combatre" << endl;
-    cout << "Il y a 3 types de Heros chois au hasard" << endl;
+    cout << "Il y a 3 types de Heros choisis au hasard" << endl;
     cout << "Le Chevalier, le Ninja et le Clerc" << endl;
-    cout << "Le Clerc a un pouvoir qui lui permet de soigner ses alliés" << endl;
+    cout << "Le Clerc a un pouvoir qui lui permet de se soigner" << endl;
     cout << "Le Ninja a un pouvoir qui lui permet d'attaquer deux fois'" << endl;
     cout << "Le Chevalier a un pouvoir qui lui permet d'augmenter son attaque'" << endl;
     cout << "==Bonne chance et bon jeu==" << endl;
@@ -72,10 +99,12 @@ int main()
     int decisionclasse = 0;                                                         // variable pour le choix de la classe du hero
 
     for (int i = 0; i < 4; i++) {                                                   // boucle pour creer les 4 heros
+        
         int decisionclasse = rand() % 3;                                            // choix aleatoire de la classe du hero
         int decisionarme = rand() % 2;                                              // choix aleatoire de l'arme du hero
         string nomarme = "";                                                        // variable pour le nom de l'arme du hero
-        switch (decisionclasse) {                                                   // creation du hero en fonction de la classe choisie au hasard
+        
+        switch (decisionclasse) {                                                   // creation du hero en fonction de la classe choisie avec switch
         case 0:
             if (decisionarme == 0) {nomarme = "epee";}                                                                          //if du choix de l'are du heros random
             else {nomarme = "hallebarde";}
@@ -98,10 +127,100 @@ int main()
     }
     }
 
+    // === creation des 10 monstres ===
+    Monstre* listemonstre [10];                                                                                     // creation d'un tableau de 10 monstres
+    int decisionmonstre = 0;                                                                                        // variable pour le choix du type de monstre
+    int decisionarme = 0;                                                                                           // variable pour le choix de l'arme du monstre
+    string nomarme = "";                                                                                            // variable pour le nom de l'arme du monstre
 
+    for (int i = 0; i < 10; i++) {                                                                                  // boucle pour creer les 10 monstres
+        
+        decisionmonstre = rand() %2;                                                                                // choix aleatoire du type de monstre
+        decisionarme = rand() % 2;                                                                                  // choix aleatoire de l'arme du monstre
+        string nomarme = "";                                                                                        // variable pour le nom de l'arme du monstre
+        int degats = 0;                                                                                             // variable pour les degats de l'arme du monstre
+
+        if (decisionarme == 0) {nomarme = "hache";degats=8;}                                                        // choix de l'arme du monstre
+        else {nomarme = "gourdin";degats=5;}
+
+        if (decisionmonstre == 0) {
+            listemonstre[i] = new Monstre((rand() %10 +10), rand() %2+4, degats, nomarme,"Monstre n:" + to_string(i) + " ORC" , true);             // creation du monstre type monstre avec les parametres aleatoires
+        }
+        else {
+            listemonstre[i] = new Monstre((rand() %10 +10), rand() %3+2, degats, nomarme, "Monstre n:" + to_string(i) + " Gobelin", true);         // creation du monstre type boss avec les parametres aleatoires
+        }
+    }
+
+
+    // === debut combat ===
+    cout << endl << "===== Debut du combat =====" << endl << endl;                          // affichage du debut du combat
+    cout << "Une orde de 10 monstre s'approche, attention !" << endl << endl;               // affichage debut
+    int nbtour=1;                                                                           // variable pour le nombre de tour
+    int a=0;                                                                                // variable pour le choix du monstre a attaquer
     
+    while (verifpartie(listehero,listemonstre)==0){
+        cout << endl << "===== Debut du tour n "<< nbtour << "=====" << endl << endl;               // affichage du debut du tour
+        cout << "Les heros attaquent !" << endl;                                                    // affichage debut du tour
+        cout << "======================" << endl;                                                   // affichage debut du tour
+
+        for (int i = 0; i < 4; i++) {                                                               // boucle pour faire attaquer les 4 heros
+            if (listehero[i]->estvivant()==true){                                                   // si le hero est vivant
+                listehero[i]->afficherstats();                                                      // affichage des stats du hero
+
+                bool verif=0;                                                                       // variable pour verifier si le monstre est vivant
+                while (verif==0){
+                    int a = rand() % 10;                                                            // choix aleatoire du monstre a attaquer
+                    if (listemonstre[a]->estvivant()==true){                                        // si le monstre est vivant
+                        verif=1;                                                                    // verif passe a 1
+                    }
+                }
+
+                // check des pb d'input user
+
+
+
+                cout << endl;                                                                       // saut de ligne
+                cout << "Que voulez vous faire avec"<< listehero[i]->getnom() <<" ?" << endl;       // affichage debut du tour
+                cout << "1 - Attaquer" << endl;                                                     // affichage debut du tour
+                cout << "2 - Defendre" << endl;                                                     // affichage debut du tour
+                cout << "3 - Pouvoir" << endl;                                                      // affichage debut du tour
+                int choix = 0;                                                                      // variable pour le choix du hero
+                cin >> choix;                                                                       // choix du hero
+                cout << endl;                                                                       // saut de ligne
+                switch (choix) {                                                                    // choix du hero avec switch
+                case 1:
+                    listehero[i]->attaquer(listemonstre[a]);                                        // attaque du hero
+                    break;
+                case 2:
+                    listehero[i]->defendre();                                                       // deffense du hero
+                    break;
+                case 3:
+                    listehero[i]->usepouvoir();                                                     // pouvoir du hero
+                    break;
+                }
+            }
+        }
+        
+
+
+
+
+    }
+
+
+    // fin de la partie et vainqueurs
+
+    if (verifpartie(listehero,listemonstre)==1){ // si les 4 heros sont tous mort
+        cout << endl << "===== Fin de la partie =====" << endl << endl; // affichage fin de la partie
+        cout << "Les monstres ont gagne, les heros sont morts !" << endl << endl; // affichage des vainqueurs
+    }
+    else if (verifpartie(listehero,listemonstre)==2){ // si les 10 monstres sont tous mort
+        cout << endl << "===== Fin de la partie =====" << endl << endl; // affichage fin de la partie
+        cout << "Les heros ont gagne, les monstres sont morts !" << endl << endl; // affichage des vainqueurs
+    }
     
-    
+    cout << endl << "===== Fin du programme =====" << endl << endl; // affichage fin du programme
+    cout << "Merci d'avoir joué" << endl << endl; // affichage fin du programme
 
     
 
@@ -112,3 +231,7 @@ int main()
 
     return 0;
 }
+
+
+
+

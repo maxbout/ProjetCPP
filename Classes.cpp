@@ -20,14 +20,14 @@ Personnage::Personnage (int vie, int defense, int degats, string arme, string no
 };
 
 // methode attaquer
-void Personnage::attaquer(Personnage &cible){
-    cout << "Le personnage " << this->nom << " attaque "<< cible.nom <<" avec son " << this->arme << endl;   // affichage de l'attaque
-    cible.prenddegats(this->degats);                                                                             // appel de la methode degats de la cible
+void Personnage::attaquer(Personnage* cible){
+    cout << "Le personnage " << this->nom << " attaque "<< cible->nom <<" avec son " << this->arme << endl;   // affichage de l'attaque
+    cible->prenddegats(this->degats);                                                                             // appel de la methode degats de la cible
 
 };
 
 // methode degats
-void Personnage::prenddegats(int ptdegat){
+void Personnage::prenddegats(int ptdegat){      
     // etape 1: calcul des degats subis
     int perdu=ptdegat-this->defense;                                                                     // calcul
     if (perdu<0){                                                                                       // si les degats sont inferieurs a la defense
@@ -45,18 +45,34 @@ void Personnage::prenddegats(int ptdegat){
 // methode afficherstats
 void Personnage::afficherstats(){
 
-    cout << "======== STATS DU PERSONNAGE: "<<this->nom << " ========" << endl;                          // affichage du titre "STATS DU PERSONNAGE
-    cout << "points de vie: " << this->vie << endl;                                                      // affichage de la vie
-    cout << "points de defense: " << this->defense << endl;                                              // affichage de la defense
-    cout << "points de degats: " << this->degats << endl;                                                // affichage des degats
-    cout << "arme: " << this->arme << endl;                                                              // affichage de l'arme
+    cout << "======== STATS DU PERSONNAGE: "<<this->nom << " ========" << endl;                             // affichage du titre "STATS DU PERSONNAGE
+    cout << "points de vie: " << this->vie << endl;                                                         // affichage de la vie
+    cout << "points de defense: " << this->defense << endl;                                                 // affichage de la defense
+    cout << "points de degats: " << this->degats << endl;                                                   // affichage des degats
+    cout << "arme: " << this->arme << endl;                                                                 // affichage de l'arme
     
-    if (this->vivant==true){                                                                             // si le personnage est vivant
-        cout << "Le personnage " << this->nom << " est vivant" << endl;                                 // affichage de l'etat de vie
+    if (this->vivant==true){                                                                                // si le personnage est vivant
+        cout << "Le personnage " << this->nom << " est vivant" << endl;                                     // affichage de l'etat de vie
     }
-    else{                                                                                               // si le personnage est mort
-        cout << "Le personnage " << this->nom << " est mort" << endl;                                    // affichage de l'etat de vie
+    else{                                                                                                   // si le personnage est mort
+        cout << "Le personnage " << this->nom << " est mort" << endl;                                       // affichage de l'etat de vie
     }
+};
+
+// methode est vivant
+bool Personnage::estvivant(){
+    return this->vivant;                                                                                    // retourne l'etat de vie
+};
+
+// methode defendre
+void Personnage::defendre(){
+    cout << "Le personnage " << this->nom << " se defend" << endl;                                          // affichage de la defense
+    this->defense=(this->defense*1.75);                                                                     // augmentation de la defense de 75 %
+};
+
+// methode getnom
+string Personnage::getnom(){
+    return this->nom;                                                                                       // retourne le nom du personnage
 };
 
 
@@ -90,7 +106,7 @@ void Hero::afficherstats(){
     cout << "pouvoir: " << this->pouvoir << endl;    // affichage du pouvoir
 };
 
-
+void Hero::usepouvoir(){};
 
 
 //========Construteurs des classes filles de Hero================
@@ -113,21 +129,21 @@ Clerc::Clerc(int vie, int defense, int degats, string arme, string nom,bool viva
 //======== methodes pouvoir des classes filles de Hero================
 
 // pouvoir du chevalier +5 degats
-void Chevalier::pouvoir(){
+void Chevalier::usepouvoir(){
     cout << "Le chevalier " << this->nom << " utilise son pouvoir" << endl;      // affichage de l'utilisation du pouvoir
     cout << "il devient plus fort de 5 pts de degats" << endl;                  // affichage de l'effet du pouvoir
     this->degats=this->degats+5;                                                  // ajout des degats
 }
 
 // pouvoir du ninja attaque deux fois
-void Ninja::pouvoir(){
+void Ninja::usepouvoir(){
     cout << "Le Ninja " << this->nom << " utilise son pouvoir" << endl;          // affichage de l'utilisation du pouvoir
     cout << "il attaque deux fois" << endl;                                     // affichage de l'effet du pouvoir
     this->degats=this->degats*2;                                                  // multiplication des degats par 2
 }
 
 // pouvoir du Clerc  se soigne de 5 pts
-void Clerc::pouvoir(){
+void Clerc::usepouvoir(){
     cout << "Le Clerc " << this->nom << " utilise son pouvoir" << endl;          // affichage de l'utilisation du pouvoir
     cout << "il se soigne de 5 pts" << endl;                                    // affichage de l'effet du pouvoir
     this->vie=this->vie+5;                                                        // ajout des degats
