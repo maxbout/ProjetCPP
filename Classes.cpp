@@ -45,7 +45,7 @@ void Personnage::prenddegats(int ptdegat){
 // methode afficherstats
 void Personnage::afficherstats(){
 
-    cout << "======== STATS DU PERSONNAGE: "<<this->nom << " ========" << endl;                             // affichage du titre "STATS DU PERSONNAGE
+    cout << "======== STATS DU PERSONNAGE: "<<this->nom << " ========" << endl;                          // affichage du titre "STATS DU PERSONNAGE
     cout << "points de vie: " << this->vie << endl;                                                      // affichage de la vie
     cout << "points de defense: " << this->defense << endl;                                              // affichage de la defense
     cout << "points de degats: " << this->degats << endl;                                                // affichage des degats
@@ -83,6 +83,14 @@ Hero::Hero(int vie, int defense, int degats, string arme, string nom,bool vivant
 // ==============================================================
 // methodes pouvoir appliquées au descendants de la classe hero
 // ==============================================================
+
+// methode afficherstats appliquée à hero
+void Hero::afficherstats(){
+    Personnage::afficherstats();    // appel de la methode afficherstats de la classe mere
+    cout << "pouvoir: " << this->pouvoir << endl;    // affichage du pouvoir
+};
+
+
 
 
 //========Construteurs des classes filles de Hero================
