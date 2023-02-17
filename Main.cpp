@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include "Classes.h"
+#include <cstdlib>
 
 using namespace std;
 
@@ -50,8 +51,11 @@ int main()
     cout << "==Bonne chance et bon jeu==" << endl;
     cout << endl;
     cout << endl;
-    cout << "Appuyez sur une touche pour continuer" << endl;
-    std::getchar();
+
+
+    cout << "Appuyez sur entrer pour continuer" << endl;
+    cin.ignore();                                                            // attend entrée
+
 
 
 
@@ -63,12 +67,12 @@ int main()
     cout <<"Leur aventure commence maintenant !";
     cout << "..." << endl;
     cout << endl;
-    cout << "Appuyez sur une touche pour continuer" << endl;
-    std::getchar();                                                                 // attend que l'utilisateur appuie sur une touche
 
+    cout << "Appuyez sur entrer pour continuer" << endl;
+    cin.ignore();                                                                   // attend entrée de l'utilisateur
+    
     string listenom [4];                                                            // creation d'un tableau de 4 noms
 
-    cin.ignore();                                                                   // vide le buffer
     cout << "===== Entrez le nom du premier hero de votre aventure====" << endl;    // demande du nom du premier hero
     string nom1;                                                                    // creation d'une variable nom1
     cin >> nom1;                                                                    // stockage du nom1
@@ -127,6 +131,13 @@ int main()
     }
     }
 
+    cout << endl;
+    cout << "Appuyez sur entrer pour continuer" << endl;            // attend que l'utilisateur appuie sur entrer
+    cin.ignore();                                                   // attend entrée de l'utilisateur
+    
+
+
+
     // === creation des 10 monstres ===
     Monstre* listemonstre [10];                                                                                     // creation d'un tableau de 10 monstres
     int decisionmonstre = 0;                                                                                        // variable pour le choix du type de monstre
@@ -157,11 +168,16 @@ int main()
     cout << "Une orde de 10 monstre s'approche, attention !" << endl << endl;               // affichage debut
     int nbtour=1;                                                                           // variable pour le nombre de tour
     int a=0;                                                                                // variable pour le choix du monstre a attaquer
+
+    cout << endl;
+    cout << "Appuyez sur entrer pour continuer" << endl;                                    // attend que l'utilisateur appuie sur entrer
+    cin.ignore();                                                                           // attend entrée de l'utilisateur
+    
     
     while (verifpartie(listehero,listemonstre)==0){
         cout << endl << "===== Debut du tour n "<< nbtour << "=====" << endl << endl;               // affichage du debut du tour
         cout << "Les heros attaquent !" << endl;                                                    // affichage debut du tour
-        cout << "======================" << endl;                                                   // affichage debut du tour
+        cout << "======================" << endl << endl;                                           // affichage debut du tour
 
         for (int i = 0; i < 4; i++) {                                                               // boucle pour faire attaquer les 4 heros
             if (listehero[i]->estvivant()==true){                                                   // si le hero est vivant
@@ -175,32 +191,83 @@ int main()
                     }
                 }
 
+                bool verifinput=0;
+                int choix = 0;
+
                 // check des pb d'input user
+                while (verifinput==0){
+                    cout << endl << endl;                                                                // saut de ligne
+                    cout << "=================================================================" << endl; // saut de ligne
+                    cout << "Que voulez vous faire avec "<< listehero[i]->getnom() <<" ?" << endl;       // affichage debut du tour
+                    cout << "1 - Attaquer" << endl;                                                     // affichage debut du tour
+                    cout << "2 - Defendre" << endl;                                                     // affichage debut du tour
+                    cout << "3 - Pouvoir" << endl;                                                      // affichage debut du tour
 
+                    cin >> choix;                                                                       // choix du hero
+                    cin.clear();                                                                        // vide le buffer de cin
+                    cin.ignore();
+                    cout << endl;                                                                       // saut de ligne
+                    
+                    switch (choix) {                                                                    // choix du hero avec switch
+                        case 1:
+                            listehero[i]->attaquer(listemonstre[a]);                                        // attaque du hero
+                            verifinput=1;                                                                   // verifinput passe a 1
+                        break;
 
+                        case 2:
+                            listehero[i]->defendre();                                                       // deffense du hero
+                            verifinput=1;                                                                   // verifinput passe a 1
+                        break;
 
-                cout << endl;                                                                       // saut de ligne
-                cout << "Que voulez vous faire avec"<< listehero[i]->getnom() <<" ?" << endl;       // affichage debut du tour
-                cout << "1 - Attaquer" << endl;                                                     // affichage debut du tour
-                cout << "2 - Defendre" << endl;                                                     // affichage debut du tour
-                cout << "3 - Pouvoir" << endl;                                                      // affichage debut du tour
-                int choix = 0;                                                                      // variable pour le choix du hero
-                cin >> choix;                                                                       // choix du hero
-                cout << endl;                                                                       // saut de ligne
-                switch (choix) {                                                                    // choix du hero avec switch
-                case 1:
-                    listehero[i]->attaquer(listemonstre[a]);                                        // attaque du hero
-                    break;
-                case 2:
-                    listehero[i]->defendre();                                                       // deffense du hero
-                    break;
-                case 3:
-                    listehero[i]->usepouvoir();                                                     // pouvoir du hero
-                    break;
+                        case 3:
+                            listehero[i]->usepouvoir();                                                     // pouvoir du hero
+                            verifinput=1;                                                                   // verifinput passe a 1
+                        break;
+
+                        default:
+                            cout << "Erreur : choix non valide" << endl;                                       // affichage erreur
+                            verifinput=0;                                                                   // verifinput passe a 0
+                        break;
+                        }
+                    
                 }
             }
+
+            else {                                                                                  // si le hero est mort
+                cout << endl << listehero[i]->getnom() << " est mort !" << endl;                    // affichage du hero mort
+            }
+
+
         }
         
+        cout << endl << "Les monstres attaquent !" << endl;                                        // affichage debut du tour monstre
+        cout << "==========================" << endl;                                               // affichage debut du tour monstre
+
+        for (int i = 0; i < 10; i++) {                                                              // boucle pour faire attaquer les 10 monstres
+            if (listemonstre[i]->estvivant()==true){                                                // si le monstre est vivant
+                listemonstre[i]->afficherstats();                                                   // affichage des stats du monstre
+
+                bool verif=0;                                                                       // variable pour verifier si le hero est vivant
+                while (verif==0){
+                    int a = rand() % 4;                                                             // choix aleatoire du hero a attaquer
+                    if (listehero[a]->estvivant()==true){                                           // si le hero est vivant
+                        verif=1;                                                                    // verif passe a 1
+                    }
+                }
+
+                listemonstre[i]->attaquer(listehero[a]);                                            // attaque du monstre
+            }
+            else {                                                                                  // si le monstre est mort
+                cout << endl << listemonstre[i]->getnom() << " est mort !" << endl;                 // affichage du monstre mort
+            }
+        }
+
+
+        nbtour++;                                                                                   // incrementation du nombre de tour
+        cout << endl << "===== Fin du tour =====" << endl << endl;                                  // affichage fin du tour
+
+        
+
 
 
 

@@ -45,7 +45,7 @@ void Personnage::prenddegats(int ptdegat){
 // methode afficherstats
 void Personnage::afficherstats(){
 
-    cout << "======== STATS DU PERSONNAGE: "<<this->nom << " ========" << endl;                             // affichage du titre "STATS DU PERSONNAGE
+    cout << endl <<"======== STATS DU PERSONNAGE: "<<this->nom << " ========" << endl;                             // affichage du titre "STATS DU PERSONNAGE
     cout << "points de vie: " << this->vie << endl;                                                         // affichage de la vie
     cout << "points de defense: " << this->defense << endl;                                                 // affichage de la defense
     cout << "points de degats: " << this->degats << endl;                                                   // affichage des degats
