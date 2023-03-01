@@ -3,6 +3,7 @@
 #include <string>
 #include "Classes.h"
 
+
 using namespace std;
 
 // ==============================================================
@@ -21,7 +22,7 @@ Personnage::Personnage (int vie, int defense, int degats, string arme, string no
 
 // methode attaquer
 void Personnage::attaquer(Personnage* cible){
-    cout << "Le personnage " << this->nom << " attaque "<< cible->nom <<" avec son " << this->arme << endl;   // affichage de l'attaque
+    cout << "Le personnage " << this->nom << " attaque "<< cible->nom <<" avec son arme:  " << this->arme << endl;   // affichage de l'attaque
     cible->prenddegats(this->degats);                                                                             // appel de la methode degats de la cible
 
 };
