@@ -27,7 +27,7 @@ void Hero::afficherstats(){
     cout << "pouvoir: " << this->pouvoir << endl;    // affichage du pouvoir
 };
 
-void Hero::usepouvoir(){};
+void Hero::usepouvoir(Personnage* cible){};
 
 
 //========Construteurs des classes filles de Hero================
@@ -50,21 +50,22 @@ Clerc::Clerc(int vie, int defense, int degats, string arme, string nom,bool viva
 //======== methodes pouvoir des classes filles de Hero================
 
 // pouvoir du chevalier +5 degats
-void Chevalier::usepouvoir(){
+void Chevalier::usepouvoir(Personnage* cible){
     cout << "Le chevalier " << this->nom << " utilise son pouvoir" << endl;      // affichage de l'utilisation du pouvoir
     cout << "il devient plus fort de 5 pts de degats" << endl;                  // affichage de l'effet du pouvoir
     this->degats=this->degats+5;                                                  // ajout des degats
 }
 
 // pouvoir du ninja attaque deux fois
-void Ninja::usepouvoir(){
+void Ninja::usepouvoir(Personnage* cible){
     cout << "Le Ninja " << this->nom << " utilise son pouvoir" << endl;          // affichage de l'utilisation du pouvoir
     cout << "il attaque deux fois" << endl;                                     // affichage de l'effet du pouvoir
-    this->degats=this->degats*2;                                                  // multiplication des degats par 2
+    this->attaquer(cible);                                                  // attaque sur la cible
+    this->attaquer(cible);                                                  // attaque sur la cible 2 eme fois
 }
 
 // pouvoir du Clerc  se soigne de 5 pts
-void Clerc::usepouvoir(){
+void Clerc::usepouvoir(Personnage* cible){
     cout << "Le Clerc " << this->nom << " utilise son pouvoir" << endl;          // affichage de l'utilisation du pouvoir
     cout << "il se soigne de 5 pts" << endl;                                    // affichage de l'effet du pouvoir
     this->vie=this->vie+5;                                                        // ajout des degats

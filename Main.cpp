@@ -251,7 +251,7 @@ int main()
 
                         case 3:
                             if(ptpouvoir<3){cout << "Vous n'avez plus de points de pouvoir !" << endl;}           // si l'equipe n'a plus de pouvoir
-                            else {listehero[boucle]->usepouvoir();ptpouvoir=ptpouvoir-3; cout << "paiement de 3 points pouvoir" << endl ; }           // pouvoir du hero
+                            else {listehero[boucle]->usepouvoir(listemonstre[a]);ptpouvoir=ptpouvoir-3; cout << "paiement de 3 points pouvoir" << endl ; }           // pouvoir du hero
                             verifinput=1;                                                               // verifinput passe a 1
                         break;
 

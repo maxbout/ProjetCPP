@@ -43,7 +43,7 @@ class Hero : public Personnage {
         Hero ();                                                                    // constructeur de la classe Hero
         Hero(int vie, int defense, int degats,std::string arme, std::string nom, bool vivant, std::string pouvoir);     // constructeur de la classe Hero
         void afficherstats();                                                               // methode afficherstats
-        void usepouvoir();                                                                  // methode pouvoir
+        virtual void usepouvoir(Personnage* cible);                                                                  // methode pouvoir
     protected:
         std::string pouvoir;                                                                // attribut pouvoir mis en protected
     };
@@ -56,7 +56,7 @@ class Hero : public Personnage {
 class Chevalier : public Hero {
     public:
         Chevalier(int vie, int defense, int degats,std::string arme, std::string nom, bool vivant, std::string pouvoir);    // constructeur de la classe Chevalier
-        virtual void usepouvoir();                                                                         // methode pouvoir appliquée au Chevalier
+        virtual void usepouvoir(Personnage* cible);                                                                         // methode pouvoir appliquée au Chevalier
         
 };
 
@@ -64,14 +64,14 @@ class Chevalier : public Hero {
 class Ninja : public Hero {
     public:
         Ninja(int vie, int defense, int degats,std::string arme, std::string nom, bool vivant, std::string pouvoir);    // constructeur de la classe Ninja
-        virtual void usepouvoir();                                                                    // methode pouvoir appliquée au Ninja
+        virtual void usepouvoir(Personnage* cible);                                                                    // methode pouvoir appliquée au Ninja
 };
 
 // creation de la classe Clerc qui herite de la classe hero
 class Clerc : public Hero {
     public:
         Clerc(int vie, int defense, int degats,std::string arme, std::string nom, bool vivant, std::string pouvoir);    // constructeur de la classe Clerc
-        virtual void usepouvoir();                                                                   // methode pouvoir appliquée au Clerc
+        virtual void usepouvoir(Personnage* cible);                                                                   // methode pouvoir appliquée au Clerc
 };
 
 
