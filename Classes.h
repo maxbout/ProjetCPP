@@ -46,8 +46,7 @@ class Hero : public Personnage {
         void usepouvoir();                                                                  // methode pouvoir
     protected:
         std::string pouvoir;                                                                // attribut pouvoir mis en protected
-        int mana;                                                                           // attribut mana mis en protected
-};
+    };
 
 // ==============================================================
 // heritage de hero
@@ -57,7 +56,7 @@ class Hero : public Personnage {
 class Chevalier : public Hero {
     public:
         Chevalier(int vie, int defense, int degats,std::string arme, std::string nom, bool vivant, std::string pouvoir);    // constructeur de la classe Chevalier
-        void usepouvoir();                                                                         // methode pouvoir appliquée au Chevalier
+        virtual void usepouvoir();                                                                         // methode pouvoir appliquée au Chevalier
         
 };
 
@@ -65,14 +64,14 @@ class Chevalier : public Hero {
 class Ninja : public Hero {
     public:
         Ninja(int vie, int defense, int degats,std::string arme, std::string nom, bool vivant, std::string pouvoir);    // constructeur de la classe Ninja
-        void usepouvoir();                                                                    // methode pouvoir appliquée au Ninja
+        virtual void usepouvoir();                                                                    // methode pouvoir appliquée au Ninja
 };
 
 // creation de la classe Clerc qui herite de la classe hero
 class Clerc : public Hero {
     public:
         Clerc(int vie, int defense, int degats,std::string arme, std::string nom, bool vivant, std::string pouvoir);    // constructeur de la classe Clerc
-        void usepouvoir();                                                                   // methode pouvoir appliquée au Clerc
+        virtual void usepouvoir();                                                                   // methode pouvoir appliquée au Clerc
 };
 
 

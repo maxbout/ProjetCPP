@@ -230,7 +230,7 @@ int main()
                     cout << "2 - Defendre" << endl;                                                     // affichage debut du tour
                     cout << "3 - Pouvoir (-3pts)" << endl << endl;                                      // affichage debut du tour
                     ptpouvoir++;                                                                        // augmentation du nombre de pouvoir
-                    cout << "Points de pouvoir : " << ptpouvoir << endl << endl;                        // affichage du nombre de pts pouvoir
+                    cout << "Points de pouvoir de l'equipe : " << ptpouvoir << endl << endl;            // affichage du nombre de pts pouvoir
 
                     cin >> choix;                                                                       // choix du hero
                     cin.clear();                                                                        // vide le buffer de cin
